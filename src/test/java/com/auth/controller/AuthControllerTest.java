@@ -1,6 +1,6 @@
 package com.auth.controller;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -15,11 +15,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.auth.model.AuthToken;
 import com.auth.model.AuthTokenResponse;
+import com.auth.util.JacksonMapper;
 
 @WebMvcTest(AuthController.class)
 class AuthControllerTest {
@@ -33,18 +31,6 @@ class AuthControllerTest {
     @BeforeEach
     public void setUp() {
 
-    }
-
-    // TODO move to a generic test class
-    protected <T> T mapFromJson(String json, Class<T> clazz) throws JsonMappingException, JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(json, clazz);
-    }
-
-    // TODO move to a generic test class
-    protected <T> String mapToString(T obj) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writeValueAsString(obj);
     }
 
     @Test
@@ -62,22 +48,20 @@ class AuthControllerTest {
 
     @Test
     public void authShouldReturnAuthTokenResponseOnSuccess() throws Exception {
-
+        // this is mocking the values
         MvcResult mvcResult = mockMvc.perform(get("/auth/get-token")
                 .accept(MediaType.APPLICATION_JSON))
                 .andReturn();
 
         String response = mvcResult.getResponse().getContentAsString();
-        // AuthTokenResponse tokenResponse = mapFromJson(response, AuthTokenResponse.class);
-        // assertEquals(tokenResponse, new AuthTokenResponse());
-        String json = mapToString(new AuthTokenResponse(HttpStatus.OK, new AuthToken()));
-        System.out.println("ABHIJEET");
+        System.out.println(response);
+        String json = JacksonMapper.mapToString(new AuthTokenResponse(HttpStatus.OK, new AuthToken()));
         System.out.println(json);
         mockMvc.perform(get("/auth/get-token")
             .content(json)) 
             .andExpect(status().isOk());
 
-        assertTrue(false);
+        assertEquals(response, "asdfsf");
     }
 
     // @Test
@@ -87,7 +71,7 @@ class AuthControllerTest {
 
     //     String response = mvcResult.getResponse().getContentAsString();
     //     System.out.println(response);
-    //     AuthTokenResponse tokenResponse = mapFromJson(response, AuthTokenResponse.class);
+    //     AuthTokenResponse tokenResponse = JacksonMapper.mapFromJson(response, AuthTokenResponse.class);
     //     assertEquals(tokenResponse, new AuthTokenResponse());
 
     // }
