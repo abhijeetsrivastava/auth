@@ -1,13 +1,10 @@
 package com.auth.service;
 
-import com.auth.model.AuthToken;
-
 /**
- * 
+ * Generate a token
  */
 
 public interface TokenGenerator {
-
-    public AuthToken token();
+    public String token(String id, String name);
 }
 

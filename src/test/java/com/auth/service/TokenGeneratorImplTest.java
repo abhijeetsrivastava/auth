@@ -1,15 +1,24 @@
 package com.auth.service;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/**
- * TokenGenerator
- */
+/** TokenGenerator */
 public class TokenGeneratorImplTest {
 
-    @Test
-    public void whenGeneratorIsCalled_shouldReturnAuthToken() {
-        new TokenGeneratorImpl();
-    }
-    
+  private TokenGeneratorImpl tokenGeneratorImpl;
+
+  @BeforeEach
+  public void setUp() {
+    tokenGeneratorImpl = new TokenGeneratorImpl();
+  }
+
+  @Test
+  public void whenGeneratorIsCalled_shouldReturnAuthToken() {
+    String token = tokenGeneratorImpl.token("", "");
+
+    assertNotNull(token);
+  }
 }
