@@ -10,7 +10,7 @@ import com.auth.model.AuthToken;
 import com.auth.model.AuthTokenResponse;
 
 /**
- * This constroller is for auth
+ * This controller is for auth
  * It can tell the health of the server
  * It generates token for users
  * It also validates any jwt token
@@ -32,7 +32,7 @@ public class AuthController {
     @GetMapping("/get-token")
     public AuthTokenResponse getToken() {
         // if user exists in db, then generate a token and send
-        // if user doesnt exist, return not_found
+        // if user doesn't exist, return not_found
 
         return new AuthTokenResponse(HttpStatus.FORBIDDEN, new AuthToken());
     }
@@ -43,3 +43,4 @@ public class AuthController {
         return new AuthTokenResponse(HttpStatus.FORBIDDEN, new AuthToken());
     }
 }
+
