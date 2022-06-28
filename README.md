@@ -32,8 +32,8 @@ TODO
     - made a quick decision
 - [x] verification of token
     - [x] unit tests
-- [ ] tokenManager
-    - [ ] tests
+- [x] tokenManager
+    - [x] tests
 - [ ] end-point for generating token
 - [ ] end-point for validating 
 - [x] how to store the secret
