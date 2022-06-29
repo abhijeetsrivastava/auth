@@ -23,7 +23,6 @@ public class TokenManagerTest {
   public void shouldCallTokenGenerator_whenGetToken() {
     User user = new User("id", "user");
     when(mockTokenGenerator.token(user.id(), user.name())).thenReturn("token");
-    // TokenManager tokenManager = new TokenManager(mockTokenGenerator, mockTokenValidator);
     tokenManager.getToken(user);
     verify(mockTokenGenerator, times(1)).token(user.id(), user.name());
   }
