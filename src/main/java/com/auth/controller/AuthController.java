@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * This controller is for auth It can tell the health of the server It generates token for users It
  * also validates any jwt token
  */
+// write open api annotation for this java class
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
